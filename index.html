@@ -57,6 +57,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <meta name="theme-color" content="#FFFDF9">
+
+<!-- Inline SVG favicon — brand circle with a white "n". No external file. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='16'%20fill='%23FF6B35'/%3E%3Ctext%20x='16'%20y='23.5'%20font-family='Arial,Helvetica,sans-serif'%20font-size='22'%20font-weight='700'%20fill='%23ffffff'%20text-anchor='middle'%3En%3C/text%3E%3C/svg%3E">
+
 <title>Gwanghwamun Seoul Guide 2026 — Verified on Foot by Two Locals</title>
 <meta name="description" content="A one-day Gwanghwamun and City Hall route in Seoul, walked and verified by two locals. Real opening hours, closing days, subway exits, and free indoor spots. Updated August 2026.">
 <meta property="og:title" content="Gwanghwamun in one day — verified on foot">
@@ -534,43 +538,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <tbody>
               <tr>
                 <th scope="row">One-day route</th>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
               <tr>
                 <th scope="row">Minute-by-minute timetable</th>
                 <td class="col"><span class="visually-hidden">Not included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
               <tr>
                 <th scope="row">Day 2 + rain / Monday alternates</th>
                 <td class="col"><span class="visually-hidden">Not included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
               <tr>
                 <th scope="row">Places we tell you to skip (and why)</th>
                 <td class="col"><span class="visually-hidden">Not included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
               <tr>
                 <th scope="row">Korean ordering scripts you can copy-paste</th>
                 <td class="col"><span class="visually-hidden">Not included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
               <tr>
                 <th scope="row">Full Google Maps + Naver Maps pin sets</th>
                 <td class="col"><span class="visually-hidden">Not included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
               <tr>
                 <th scope="row">Budget breakdown with real receipts</th>
                 <td class="col"><span class="visually-hidden">Not included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
               <tr>
                 <th scope="row">Quarterly re-verification</th>
                 <td class="col"><span class="visually-hidden">Not included</span></td>
-                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col"><span aria-hidden="true">✓</span><span class="visually-hidden">Included</span></td>
               </tr>
             </tbody>
           </table>
@@ -630,8 +634,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </footer>
 
-<script>
-/* Inline JS — populated in a later step (form handling, FAQ toggles). */
+<!-- Structured data. Text below must stay identical to the visible FAQ copy —
+     schema.org requires the markup to match what the user sees. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Google Maps work in Korea?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Partially. Korean law restricted export of high-precision map data for years, so walking and driving directions have been unreliable. The government approved conditional export in February 2026, but the improvement is not fully live yet. For now, most locals use Naver Map or KakaoMap. Google Maps is fine for finding a place; it's less reliable for getting there on foot."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What days are museums closed in Seoul?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most museums and art galleries close on Mondays, including the Seoul Museum of Art. Palaces have their own closing days — Gyeongbokgung closes Tuesdays, Deoksugung closes Mondays. Last admission is usually one hour before closing, which catches a lot of people out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How hot is Seoul in August?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Daytime highs sit around 33–36°C with very high humidity. The real problem in Gwanghwamun is that the main square has almost no shade. If you're visiting in August, plan indoor stops between roughly 1 PM and 4 PM rather than pushing through."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I book restaurants without a Korean phone number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but not through every app. Naver and the domestic version of CatchTable require Korean phone verification. CatchTable Global lets you sign up with an email address. Many walk-in-only restaurants use a tablet system at the door that only works with a Korean app — for those, arriving early is the only real strategy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this guide free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The one-day Gwanghwamun guide is free and complete on its own. There's a longer paid version, but the free one is not a sample — it's a working day plan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often is it updated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We re-verify each area once per quarter and note the date at the top of every page. If something is wrong, message us on Instagram and we correct it within 48 hours."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "noneun",
+  "description": "Verified Seoul travel guides by two local residents",
+  "url": "https://noneuning.github.io",
+  "sameAs": [
+    "https://instagram.com/noneun_seoul_ing"
+  ]
+}
 </script>
 </body>
 </html>
