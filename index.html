@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- 1. noneun campaign params -> dataLayer. MUST run before GTM. -->
+<script>
+window.dataLayer = window.dataLayer || [];
+(function () {
+  var p = new URLSearchParams(location.search);
+  var keys = ['nn_region','nn_ctype','nn_stage','nn_format','nn_hook'];
+  var data = {};
+  keys.forEach(function (k) {
+    var v = p.get(k);
+    if (v) { data[k] = v; }
+  });
+
+  try {
+    if (Object.keys(data).length) {
+      sessionStorage.setItem('nn_params', JSON.stringify(data));
+    } else {
+      var saved = sessionStorage.getItem('nn_params');
+      if (saved) { data = JSON.parse(saved); }
+    }
+    if (Object.keys(data).length && !localStorage.getItem('nn_first')) {
+      localStorage.setItem('nn_first', JSON.stringify({
+        first_ctype:  data.nn_ctype  || '',
+        first_region: data.nn_region || '',
+        first_hook:   data.nn_hook   || ''
+      }));
+    }
+  } catch (e) {}
+
+  var first = {};
+  try { first = JSON.parse(localStorage.getItem('nn_first') || '{}'); } catch (e) {}
+
+  window.dataLayer.push({
+    nn_region:    data.nn_region  || '(not set)',
+    nn_ctype:     data.nn_ctype   || '(not set)',
+    nn_stage:     data.nn_stage   || '(not set)',
+    nn_format:    data.nn_format  || '(not set)',
+    nn_hook:      data.nn_hook    || '(not set)',
+    first_ctype:  first.first_ctype  || '(not set)',
+    first_region: first.first_region || '(not set)',
+    first_hook:   first.first_hook   || '(not set)'
+  });
+})();
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MDKL3XTT');</script>
+<!-- End Google Tag Manager -->
+
+<meta name="theme-color" content="#FFFDF9">
+<title>Gwanghwamun Seoul Guide 2026 — Verified on Foot by Two Locals</title>
+<meta name="description" content="A one-day Gwanghwamun and City Hall route in Seoul, walked and verified by two locals. Real opening hours, closing days, subway exits, and free indoor spots. Updated August 2026.">
+<meta property="og:title" content="Gwanghwamun in one day — verified on foot">
+<meta property="og:description" content="Two Seoul locals walked it and checked every opening hour. Free guide.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noneuning.github.io">
+<!-- TODO: og:image (1200x630) 준비되면 추가 + twitter:card를 summary_large_image로 변경 -->
+<meta name="twitter:card" content="summary">
+<style>
+/* ---------------------------------------------------------
+   1. Design tokens
+--------------------------------------------------------- */
+:root {
+  --bg:        #FFFDF9;
+  --surface:   #FFFFFF;
+  --ink:       #1A1A1A;
+  --ink-soft:  #5A5A5A;
+  --brand:     #FF6B35;
+  --brand-2:   #7C5CFF;
+  --accent:    #0F9D58;
+  --warn:      #E5484D;
+  --line:      #EAE6E0;
+  --radius:    12px;
+  --maxw:      680px;
+
+  /* Derived text-safe variants. --accent and --brand are correct for icons,
+     borders and fills, but fail 4.5:1 as small text on --bg
+     (accent 3.5:1, brand 2.8:1). These are the same hues, darkened:
+     accent-ink 5.3:1, brand-ink 5.1:1. */
+  --accent-ink: #0B7A44;
+  --brand-ink:  #C2410C;
+
+  --pad:       20px;
+  --section-y: 64px;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+
+  /* Mobile-first type scale */
+  --fs-h1:   32px;
+  --fs-h2:   24px;
+  --fs-h3:   20px;
+  --fs-body: 16px;
+  --fs-small:14px;
+  --fs-micro:13px;
+
+  --lh-tight: 1.2;
+  --lh-head:  1.25;
+  --lh-body:  1.65;
+}
+
+/* ---------------------------------------------------------
+   2. Reset
+--------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body,
+h1, h2, h3, h4, p,
+figure, blockquote,
+dl, dd, ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul[class], ol[class] { list-style: none; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, picture, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+a {
+  color: var(--brand-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---------------------------------------------------------
+   3. Typography scale
+--------------------------------------------------------- */
+h1, h2, h3 {
+  line-height: var(--lh-head);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); letter-spacing: -0.01em; }
+
+p { text-wrap: pretty; }
+p + p { margin-top: 1em; }
+
+small, .u-small { font-size: var(--fs-small); }
+.u-micro { font-size: var(--fs-micro); }
+.u-soft  { color: var(--ink-soft); }
+
+/* ---------------------------------------------------------
+   4. Layout primitives
+--------------------------------------------------------- */
+.section {
+  padding-block: var(--section-y);
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* MailerLite embed wrapper.
+   The embed injects its own !important CSS (Open Sans, fixed 400px width).
+   Do not fight it — control only the outer box from here. */
+.ml-form-wrap {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Accessibility helpers */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand-2);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------------
+   5. Components
+--------------------------------------------------------- */
+
+/* Full-bleed alternating band */
+.section--alt {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+
+/* Anchor landing offset */
+#signup { scroll-margin-top: 12px; }
+
+/* Section heading rhythm */
+.section h1, .section h2 { margin-bottom: 20px; }
+.section h2 + p, .section h1 + p { margin-top: 0; }
+
+/* --- Hero --- */
+.badge {
+  display: block;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--accent-ink);
+  margin-bottom: 14px;
+}
+
+.hero-body { max-width: 34em; }
+
+.btn {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 16px 26px;
+  background: var(--brand);
+  color: var(--ink);          /* ink on brand = 6.1:1 */
+  font-weight: 700;
+  font-size: var(--fs-body);
+  text-decoration: none;
+  border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,.08);
+}
+.btn:hover { filter: brightness(1.05); }
+.btn:active { transform: translateY(1px); }
+
+/* --- Cards (problem) --- */
+.cards {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+.card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.section--alt .card { background: var(--bg); }
+.card h3 { margin-bottom: 6px; }
+.card p { font-size: var(--fs-small); color: var(--ink-soft); }
+
+/* --- Checklist (inside) --- */
+.checklist { list-style: none; margin-top: 8px; }
+.checklist li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 14px;
+}
+.checklist li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+/* --- Verify box (about) --- */
+.verify {
+  margin-top: 28px;
+  padding: 16px 18px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: #F2FAF5;         /* accent tint, keeps ink at 15:1 */
+  font-size: var(--fs-small);
+}
+.verify p + p { margin-top: 8px; }
+
+/* --- Signup --- */
+.form-note { margin-top: 20px; font-size: var(--fs-small); color: var(--ink-soft); }
+.form-note strong { color: var(--ink); font-weight: 600; }
+.privacy { margin-top: 10px; font-size: var(--fs-micro); color: var(--ink-soft); }
+
+/* --- Compare table (paid) --- */
+.table-scroll { overflow-x: auto; margin-top: 24px; }
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+}
+.compare th, .compare td {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+.compare thead th {
+  font-size: var(--fs-micro);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 2px solid var(--line);
+}
+.compare tbody th {
+  font-weight: 400;
+  color: var(--ink);
+}
+.compare .col { width: 58px; text-align: center; }
+.compare td.col { color: var(--accent-ink); font-weight: 700; }
+.compare .price { color: var(--ink); font-weight: 700; text-transform: none; font-size: var(--fs-small); }
+
+.paid-note { margin-top: 20px; font-size: var(--fs-small); }
+
+/* --- FAQ --- */
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 4px 0;
+}
+.faq-item summary {
+  cursor: pointer;
+  padding: 14px 30px 14px 0;
+  font-weight: 600;
+  list-style: none;
+  position: relative;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 12px;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+.faq-item[open] summary::after { content: "\2212"; }
+.faq-item .answer {
+  padding: 0 0 16px;
+  color: var(--ink-soft);
+}
+
+/* --- Footer --- */
+#footer {
+  padding-block: 40px;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+#footer p + p { margin-top: 10px; }
+#footer .brandline { color: var(--ink); font-weight: 600; }
+#footer a { color: var(--brand-ink); }
+.copyright { margin-top: 20px; font-size: var(--fs-micro); }
+
+/* ---------------------------------------------------------
+   6. Desktop scale-up
+--------------------------------------------------------- */
+@media (min-width: 700px) {
+  :root {
+    --fs-h1:   44px;
+    --fs-h2:   30px;
+    --fs-h3:   22px;
+    --fs-body: 17px;
+    --pad:     24px;
+  }
+
+  .cards { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .badge { font-size: var(--fs-small); }
+  .compare th, .compare td { padding: 14px 10px; }
+  .compare { font-size: var(--fs-body); }
+  .compare .col { width: 90px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2553221');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDKL3XTT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <main>
+    <!-- 1. Hero — headline, subhead, CTA to #signup (no form here) -->
+    <section id="hero" class="section">
+      <div class="wrap">
+        <p class="badge"><span aria-hidden="true">✅</span> Verified on foot · Gwanghwamun &amp; City Hall · Last checked 2026-08-15</p>
+        <h1>Your Seoul plan has 2 mistakes in it.</h1>
+        <p class="hero-body">We're two locals living in Seoul. We walk every route first, check every opening hour, and tell you what actually goes wrong — including the times we got it wrong ourselves.</p>
+        <a class="btn" href="#signup">Get the free guide <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <!-- 2. Problem — why existing Seoul guides fail travelers -->
+    <section id="problem" class="section section--alt">
+      <div class="wrap">
+        <h2>The problem isn't information. It's verification.</h2>
+        <p>You already made a plan. Maybe ChatGPT made it for you in five minutes.</p>
+        <p>Here's what nobody tells you: most AI-generated itineraries contain at least one error — a place that closed, a wrong opening time, a price from three years ago.</p>
+        <p>You find out on the street, in 36°C heat, standing in front of a locked door.</p>
+        <p>That's the gap we fill. Not more recommendations. Verification.</p>
+
+        <div class="cards">
+          <div class="card">
+            <h3>We go first</h3>
+            <p>Every place in this guide, we physically went to. On the date listed.</p>
+          </div>
+          <div class="card">
+            <h3>We check the boring stuff</h3>
+            <p>Opening hours, closing days, which exit is actually closer, whether they take cards.</p>
+          </div>
+          <div class="card">
+            <h3>We tell you what's bad</h3>
+            <p>Some places aren't worth your time. We say so. Nobody sponsors us.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Inside — what's actually in the free guide -->
+    <section id="inside" class="section">
+      <div class="wrap">
+        <h2>What's in the free guide</h2>
+        <ul class="checklist">
+          <li>A full one-day route through Gwanghwamun &amp; City Hall — in order, with timing</li>
+          <li>Which subway exit is actually closest (the signs are not always right)</li>
+          <li>Free indoor places to sit when August tries to kill you</li>
+          <li>Closing days — including the ones that surprise people</li>
+          <li>A Google Maps list you can save in one tap</li>
+          <li>4 mistakes we watched tourists make, and how to skip them</li>
+        </ul>
+        <p class="u-small u-soft">No account needed. It opens in your browser.</p>
+      </div>
+    </section>
+
+    <!-- 4. About — the two people behind noneun -->
+    <section id="about" class="section section--alt">
+      <div class="wrap">
+        <h2>Who's writing this</h2>
+        <p>Two people in their twenties who live in Seoul and got tired of watching visitors waste half a day on a place that closed on Mondays.</p>
+        <p>We don't show our faces. We do show our receipts.</p>
+        <p>One of us worked near City Hall Station for six months, which is why the café section is longer than it probably should be.</p>
+        <p>Our English isn't perfect. Our information is.</p>
+
+        <div class="verify">
+          <p><span aria-hidden="true">✅</span> Last verified on foot: 2026-08-15</p>
+          <p><span aria-hidden="true">⚠️</span> Prices and hours change. Found something wrong? DM us — we fix it within 48 hours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Signup — main conversion point -->
+    <section id="signup" class="section">
+      <div class="wrap">
+        <h2>Get the free guide</h2>
+        <p>One email. That's it.</p>
+
+        <!-- MailerLite form p1Xciv — the ONLY instance on this page.
+             Duplicating it breaks the embed (fixed DOM ids + global callbacks). -->
+        <div class="ml-form-wrap">
+          <div class="ml-embedded" data-form="p1Xciv"></div>
+        </div>
+
+        <p class="form-note">Free. No spam. Unsubscribe anytime.<br>
+        The Gwanghwamun guide goes out on August 22. Sign up now and you'll get it the moment it's ready.</p>
+        <p class="privacy">We only use your email to send you our guides. We never sell or share it.</p>
+      </div>
+    </section>
+
+    <!-- 6. Paid — the paid offering, teased -->
+    <section id="paid" class="section section--alt">
+      <div class="wrap">
+        <h2>There's a longer version</h2>
+        <p>The free guide gets you through one solid day. The full version is for people who want the whole thing planned down to the minute.</p>
+
+        <div class="table-scroll">
+          <table class="compare">
+            <caption class="visually-hidden">Comparison of the free guide and the full version</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="visually-hidden">Feature</span></th>
+                <th scope="col" class="col">Free</th>
+                <th scope="col" class="col"><span class="price">Full $6.9</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">One-day route</th>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Minute-by-minute timetable</th>
+                <td class="col"><span class="visually-hidden">Not included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Day 2 + rain / Monday alternates</th>
+                <td class="col"><span class="visually-hidden">Not included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Places we tell you to skip (and why)</th>
+                <td class="col"><span class="visually-hidden">Not included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Korean ordering scripts you can copy-paste</th>
+                <td class="col"><span class="visually-hidden">Not included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Full Google Maps + Naver Maps pin sets</th>
+                <td class="col"><span class="visually-hidden">Not included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Budget breakdown with real receipts</th>
+                <td class="col"><span class="visually-hidden">Not included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Quarterly re-verification</th>
+                <td class="col"><span class="visually-hidden">Not included</span></td>
+                <td class="col">✓<span class="visually-hidden">Included</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="paid-note">Coming August 29. Free guide subscribers get 30% off for the first 72 hours.</p>
+      </div>
+    </section>
+
+    <!-- 7. FAQ — objection handling.
+         details/summary keeps every answer in the DOM while collapsed,
+         so crawlers and AI assistants read the full text. -->
+    <section id="faq" class="section">
+      <div class="wrap">
+        <h2>Questions people actually ask us</h2>
+
+        <details class="faq-item">
+          <summary>Does Google Maps work in Korea?</summary>
+          <p class="answer">Partially. Korean law restricted export of high-precision map data for years, so walking and driving directions have been unreliable. The government approved conditional export in February 2026, but the improvement is not fully live yet. For now, most locals use Naver Map or KakaoMap. Google Maps is fine for finding a place; it's less reliable for getting there on foot.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What days are museums closed in Seoul?</summary>
+          <p class="answer">Most museums and art galleries close on Mondays, including the Seoul Museum of Art. Palaces have their own closing days — Gyeongbokgung closes Tuesdays, Deoksugung closes Mondays. Last admission is usually one hour before closing, which catches a lot of people out.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How hot is Seoul in August?</summary>
+          <p class="answer">Daytime highs sit around 33–36°C with very high humidity. The real problem in Gwanghwamun is that the main square has almost no shade. If you're visiting in August, plan indoor stops between roughly 1 PM and 4 PM rather than pushing through.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I book restaurants without a Korean phone number?</summary>
+          <p class="answer">Yes, but not through every app. Naver and the domestic version of CatchTable require Korean phone verification. CatchTable Global lets you sign up with an email address. Many walk-in-only restaurants use a tablet system at the door that only works with a Korean app — for those, arriving early is the only real strategy.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is this guide free?</summary>
+          <p class="answer">Yes. The one-day Gwanghwamun guide is free and complete on its own. There's a longer paid version, but the free one is not a sample — it's a working day plan.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How often is it updated?</summary>
+          <p class="answer">We re-verify each area once per quarter and note the date at the top of every page. If something is wrong, message us on Instagram and we correct it within 48 hours.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8. Footer — contact, legal, socials -->
+  <footer id="footer" class="section section--alt">
+    <div class="wrap">
+      <p class="brandline">noneun_seoul_ing — two locals in Seoul</p>
+      <p>Instagram: <a href="https://instagram.com/noneun_seoul_ing" target="_blank" rel="noopener noreferrer">@noneun_seoul_ing</a></p>
+      <p>Found something wrong? Send us a DM. We fix it within 48 hours.</p>
+      <p class="copyright">© 2026 noneun_seoul_ing</p>
+    </div>
+  </footer>
+
+<script>
+/* Inline JS — populated in a later step (form handling, FAQ toggles). */
+</script>
+</body>
+</html>
