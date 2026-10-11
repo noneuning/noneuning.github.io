@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- 1. noneun campaign params -> dataLayer. MUST run before GTM. -->
+<script>
+window.dataLayer = window.dataLayer || [];
+(function () {
+  var p = new URLSearchParams(location.search);
+  var keys = ['nn_region','nn_ctype','nn_stage','nn_format','nn_hook'];
+  var data = {};
+  keys.forEach(function (k) {
+    var v = p.get(k);
+    if (v) { data[k] = v; }
+  });
+
+  try {
+    if (Object.keys(data).length) {
+      sessionStorage.setItem('nn_params', JSON.stringify(data));
+    } else {
+      var saved = sessionStorage.getItem('nn_params');
+      if (saved) { data = JSON.parse(saved); }
+    }
+    if (Object.keys(data).length && !localStorage.getItem('nn_first')) {
+      localStorage.setItem('nn_first', JSON.stringify({
+        first_ctype:  data.nn_ctype  || '',
+        first_region: data.nn_region || '',
+        first_hook:   data.nn_hook   || ''
+      }));
+    }
+  } catch (e) {}
+
+  var first = {};
+  try { first = JSON.parse(localStorage.getItem('nn_first') || '{}'); } catch (e) {}
+
+  window.dataLayer.push({
+    nn_region:    data.nn_region  || '(not set)',
+    nn_ctype:     data.nn_ctype   || '(not set)',
+    nn_stage:     data.nn_stage   || '(not set)',
+    nn_format:    data.nn_format  || '(not set)',
+    nn_hook:      data.nn_hook    || '(not set)',
+    first_ctype:  first.first_ctype  || '(not set)',
+    first_region: first.first_region || '(not set)',
+    first_hook:   first.first_hook   || '(not set)'
+  });
+})();
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MDKL3XTT');</script>
+<!-- End Google Tag Manager -->
+
+<meta name="theme-color" content="#F6F2DE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%234A3B2C'/%3E%3Ctext%20x='16'%20y='23'%20font-family='Georgia,serif'%20font-size='22'%20font-weight='700'%20fill='%23FCFAEF'%20text-anchor='middle'%3En%3C/text%3E%3C/svg%3E">
+
+<title>Free Hongdae & Mangwon Guide — Walked by Two Seoul Locals</title>
+<meta name="description" content="A free guide to Hongdae, Yeonnam, Hapjeong and Mangwon in Seoul, walked on foot by two locals. Route picks, hidden cafés and bars, and a day 2 route. No signup.">
+<meta property="og:title" content="So many places in Hongdae. Here's where we'd actually go.">
+<meta property="og:description" content="A free guide to Hongdae, Yeonnam, Hapjeong and Mangwon, walked on foot by two Seoul locals. No signup.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noneuning.github.io/free">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ground:#F6F2DE;      /* cream, light yellow */
+  --paper:#FCFAEF;
+  --receipt:#FFFEF8;
+  --brown:#4A3B2C;       /* cool, deep brown */
+  --brown-dark:#33281D;
+  --line:#D9D1B6;
+  --dots:#A99D80;
+  --ink:#141414;
+  --ink-soft:#47423A;
+  --serif:Georgia,"Times New Roman",Times,serif;
+  --mono:"IBM Plex Mono","Courier New",Courier,monospace;
+  --maxw:640px;
+  --pad:22px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body,h1,h2,p,ol,ul{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--brown);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--brown-dark)}
+img{display:block;max-width:100%;height:auto}
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+
+/* masthead */
+.top{border-top:6px solid var(--brown)}
+.mast{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-block:22px 14px;border-bottom:1px solid var(--line)}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--brown);letter-spacing:-0.01em;text-decoration:none}
+.mast-tag{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:var(--ink-soft);text-transform:uppercase;text-align:right}
+
+/* type */
+.label{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--brown);margin-bottom:12px}
+h1{font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:-0.015em;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.25;letter-spacing:-0.01em;text-wrap:balance}
+p{text-wrap:pretty}
+.lede{margin-top:16px;max-width:34em}
+.where{margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--ink-soft)}
+
+/* sections */
+.hero{padding-block:36px 44px}
+.block{padding-block:40px;border-top:1px solid var(--line)}
+.block p{margin-top:12px}
+
+/* buttons */
+.btn{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:60px;margin-top:26px;padding:16px 22px;background:var(--brown);color:var(--paper);font-family:var(--serif);font-size:19px;line-height:1.25;text-decoration:none;border-radius:4px;border:2px solid var(--brown);box-shadow:0 3px 0 var(--brown-dark);transition:transform .08s ease, box-shadow .08s ease, background-color .15s ease}
+.btn:hover{background:var(--brown-dark);color:var(--paper)}
+.btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--brown-dark)}
+.btn .arrow{font-family:var(--mono);font-size:20px}
+.btn-line{background:transparent;color:var(--ink);box-shadow:0 3px 0 var(--brown)}
+.btn-line:hover{background:var(--paper);color:var(--ink)}
+.btn-line:active{box-shadow:0 0 0 var(--brown)}
+.anchor{margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--ink);padding:10px 12px;border-left:0;background:var(--paper);border:1px dashed var(--dots)}
+.btn-note{margin-top:12px;font-family:var(--mono);font-size:12px;letter-spacing:0.04em;color:var(--ink-soft)}
+@media (min-width:640px){.btn{width:auto;min-width:340px;display:inline-flex}}
+
+/* receipt */
+.receipt{position:relative;margin-top:30px;margin-bottom:14px;background:var(--receipt);border:1px solid var(--line);border-bottom:none;padding:20px 20px 14px;font-family:var(--mono);font-size:14px;color:var(--ink)}
+.receipt::after{content:"";position:absolute;left:-1px;right:-1px;bottom:-10px;height:10px;
+  background:
+    linear-gradient(-45deg,transparent 7px,var(--receipt) 0) 0 0/14px 10px repeat-x,
+    linear-gradient(45deg,transparent 7px,var(--receipt) 0) 0 0/14px 10px repeat-x}
+.r-head{display:flex;justify-content:space-between;font-weight:600;letter-spacing:0.08em;padding-bottom:10px;border-bottom:1px dashed var(--dots);font-size:12px}
+.r-list{list-style:none;padding:8px 0 10px}
+.r-row{display:flex;align-items:baseline;gap:8px;padding-top:9px}
+.r-row .fill{flex:1;border-bottom:1px dotted var(--dots);transform:translateY(-4px)}
+.r-row .qty{color:var(--ink-soft);white-space:nowrap}
+.r-total{display:flex;justify-content:space-between;font-weight:600;letter-spacing:0.06em;padding-top:10px;border-top:1px dashed var(--dots);font-size:13px}
+
+/* footer */
+footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:15px;color:var(--ink-soft)}
+.checked{font-family:var(--mono);font-size:12px;line-height:1.7;letter-spacing:0.02em;padding:14px 16px;border:1px dashed var(--dots);background:var(--paper);color:var(--ink)}
+footer p+p{margin-top:8px}
+.brandline{margin-top:22px;color:var(--ink)}
+.copy{margin-top:18px;font-family:var(--mono);font-size:11px}
+
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@media (min-width:700px){h1{font-size:46px}h2{font-size:30px}body{font-size:18px}.hero{padding-block:52px 56px}.block{padding-block:52px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDKL3XTT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="top">
+  <header class="wrap">
+    <div class="mast">
+      <a class="wordmark" href="/free">noneun</a>
+      <span class="mast-tag">Free guide · Hongdae / Mangwon</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 1. The guide. One action, no signup. -->
+    <section id="guide" class="hero">
+      <p class="label">Walked on foot · October 2026</p>
+      <h1>So many places in Hongdae. Here's where we'd actually go.</h1>
+      <p class="where">Hongdae · Yeonnam · Hapjeong · Mangwon</p>
+      <p class="lede">Two Seoul locals walked these neighborhoods on foot and put our picks in one free guide. No signup, no email.</p>
+
+      <a class="btn btn-canva" href="https://hongdae-mangwon.my.canva.site/" target="_blank" rel="noopener">
+        <span>Open the free guide</span><span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="btn-note">Opens in your browser · Works on your phone</p>
+
+      <div class="receipt" aria-label="What's in the free guide">
+        <div class="r-head"><span>WHAT'S INSIDE</span><span>FREE</span></div>
+        <ul class="r-list">
+          <li class="r-row"><span>Our route picks</span><span class="fill" aria-hidden="true"></span><span class="qty">1 page</span></li>
+          <li class="r-row"><span>Day 1, stop by stop</span><span class="fill" aria-hidden="true"></span><span class="qty">8 pages</span></li>
+          <li class="r-row"><span>Cafés locals go to</span><span class="fill" aria-hidden="true"></span><span class="qty">1 page</span></li>
+          <li class="r-row"><span>Bars locals go to</span><span class="fill" aria-hidden="true"></span><span class="qty">1 page</span></li>
+          <li class="r-row"><span>A day 2 route</span><span class="fill" aria-hidden="true"></span><span class="qty">1 page</span></li>
+        </ul>
+        <div class="r-total"><span>TOTAL</span><span>$0.00</span></div>
+      </div>
+
+      <a class="btn btn-canva" href="https://hongdae-mangwon.my.canva.site/" target="_blank" rel="noopener">
+        <span>Open the free guide</span><span class="arrow" aria-hidden="true">→</span>
+      </a>
+
+    </section>
+
+    <!-- 2. Optional: map list by email (goes to /pins) -->
+    <section id="pins" class="block">
+      <p class="label">Optional</p>
+      <h2>Want all 69 spots on your map?</h2>
+      <p>We saved every place from the guide in one Google Maps list. Leave your email and we'll send it right away.</p>
+      <a class="btn btn-line" href="/pins?from=free">
+        <span>Get the map list</span><span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <!-- 3. Paid -->
+    <section id="paid" class="block">
+      <p class="label">The full guide · $6.90</p>
+      <h2>The 10 pages we blurred</h2>
+      <p>The free guide tells you where to go. The full guide is the part that keeps you from getting it wrong: nightlife, busking, Mangwon Market, Han River food hacks, the Han River bus, plus the Pins &amp; Scripts kit.</p>
+      <p class="anchor">The 3 postcards alone are $5.90. With the full guide, it's $6.90.</p>
+      <a class="btn btn-line btn-paid" href="https://noneuning.gumroad.com/l/hongdae-mangwon-guide?utm_source=free_page&amp;utm_medium=cta&amp;utm_campaign=guide_paid&amp;utm_content=free_page&amp;nn_product=guide" target="_blank" rel="noopener">
+        <span>Unlock all 10 pages — $6.90</span><span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="btn-note">Instant access · Works on your phone · 3 postcards included</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="checked">LAST CHECKED ON FOOT: OCTOBER 2026. Prices and hours change. Found something off? DM us on Instagram and we'll fix it.</p>
+      <p class="brandline">noneun — two locals in Seoul</p>
+      <p>Instagram: <a href="https://instagram.com/noneun_seoul_ing" target="_blank" rel="noopener noreferrer">@noneun_seoul_ing</a></p>
+      <p class="copy">© 2026 noneun_seoul_ing</p>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>
