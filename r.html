@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>noneun</title>
+<!-- Reddit short link: noneuning.github.io/r
+     Put THIS link on the Reddit profile (social link) and in comments when someone asks.
+     No GTM on purpose: this page must not start its own GA4 session.
+     It forwards straight to this month's page WITH UTM tags, so GA4 shows "reddit".
+     Next month: change TARGET and CONTENT only.
+       /r            -> utm_medium=profile  (profile social link)
+       /r?c=comment  -> utm_medium=comment  (a link you paste in a comment) -->
+<script>
+(function () {
+  var TARGET  = '/bukchon';
+  var CONTENT = 'bukchon';
+  var c = new URLSearchParams(location.search).get('c');
+  var medium   = c === 'comment' ? 'comment' : 'profile';
+  var campaign = c === 'comment' ? 'reddit_comment' : 'profile_link';
+  location.replace(TARGET + '?utm_source=reddit&utm_medium=' + medium +
+    '&utm_campaign=' + campaign + '&utm_content=' + CONTENT + '&nn_region=' + CONTENT);
+})();
+</script>
+<meta http-equiv="refresh" content="0; url=/bukchon?utm_source=reddit&amp;utm_medium=profile&amp;utm_campaign=profile_link&amp;utm_content=bukchon&amp;nn_region=bukchon">
+</head>
+<body style="background:#F6F2DE;font-family:Georgia,serif;text-align:center;padding:40px">
+<p><a href="/bukchon?utm_source=reddit&amp;utm_medium=profile&amp;utm_campaign=profile_link&amp;utm_content=bukchon&amp;nn_region=bukchon">Go to the free Bukchon guide</a></p>
+</body>
+</html>
