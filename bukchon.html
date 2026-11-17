@@ -435,8 +435,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var cta = document.getElementById('emailCta');
   function openForm() { form.hidden = false; cta.style.display = 'none'; }
 
-  // Context: readers coming from the locked page 22 see page 22 as the headline, map as the bonus.
-  if (/^guide_p22/.test(from)) {
+  // Context: readers coming from the locked page 22 (or the page-22 row on /links) see page 22 as the headline, map as the bonus.
+  if (/^(guide|links)_p22/.test(from)) {
     document.getElementById('emailTitle').textContent = 'It’s 5pm. Now what? Page 22, free by email';
     document.getElementById('emailLede').textContent = 'The red zone closes at 5. Page 22 of the full guide is where the evening goes from there. We’ll send it with our Bukchon food map: 45 places to eat and drink.';
     var list = document.getElementById('emailList');
