@@ -7,6 +7,21 @@
 <!-- 1. noneun campaign params -> dataLayer. MUST run before GTM. -->
 <script>
 window.dataLayer = window.dataLayer || [];
+// 0. Old links with ?ref=... (e.g. ?ref=reddit on past Reddit posts) carry no UTM, so GA4 files the visit under Direct.
+//    Copy ref into UTM tags before GTM loads so GA4 credits the real source. The ref param itself stays in the URL.
+(function () {
+  try {
+    var u = new URL(location.href);
+    var q = u.searchParams;
+    var ref = q.get('ref');
+    if (ref && !q.get('utm_source')) {
+      q.set('utm_source', ref.indexOf('reddit') === 0 ? 'reddit' : ref.split('_')[0]);
+      q.set('utm_medium', 'post');
+      q.set('utm_campaign', ref);
+      history.replaceState(history.state, '', u.pathname + '?' + q.toString() + u.hash);
+    }
+  } catch (e) {}
+})();
 (function () {
   var p = new URLSearchParams(location.search);
   var keys = ['nn_region','nn_ctype','nn_stage','nn_format','nn_hook'];
@@ -588,7 +603,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </table>
         </div>
 
-        <p class="paid-note">   <a href="https://noneuning.gumroad.com/l/gwanghwamun-guide?wanted=true&utm_source=landing&utm_medium=cta&utm_campaign=guide_paid&nn_product=guide" target="_blank" rel="noopener">Get the full guide — $6.9</a> </p> <p class="paid-note" style="margin-top:8px;font-size:0.9em;">   For $1 more than postcards alone, you get the full guide too. </p> <p class="paid-note" style="margin-top:8px;font-size:0.9em;">   <a href="https://noneuning.gumroad.com/l/seoul-postcards?wanted=true&utm_source=landing&utm_medium=cta&utm_campaign=postcard_paid&nn_product=postcard" target="_blank" rel="noopener">Just the postcards — $5.9</a> </p>
+        <p class="paid-note">   <a id="cta-paid-guide" href="https://noneuning.gumroad.com/l/gwanghwamun-guide?wanted=true&utm_source=landing&utm_medium=cta&utm_campaign=guide_paid&nn_product=guide" target="_blank" rel="noopener">Get the full guide — $6.9</a> </p> <p class="paid-note" style="margin-top:8px;font-size:0.9em;">   For $1 more than postcards alone, you get the full guide too. </p> <p class="paid-note" style="margin-top:8px;font-size:0.9em;">   <a id="cta-paid-postcards" href="https://noneuning.gumroad.com/l/seoul-postcards?wanted=true&utm_source=landing&utm_medium=cta&utm_campaign=postcard_paid&nn_product=postcard" target="_blank" rel="noopener">Just the postcards — $5.9</a> </p>
       </div>
     </section>
 
