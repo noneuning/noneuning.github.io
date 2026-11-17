@@ -343,7 +343,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="price if-launch"><span>LAUNCH WEEK</span><span><s>$6.90</s>$4.90</span></div>
         <div class="price if-regular"><span>TOTAL</span><span>$6.90</span></div>
       </div>
-      <p class="launch-note if-launch">Launch week: $4.90 until Sunday, November 23 (Seoul time). Then $6.90. That’s less than the 3 postcards alone ($5.90).</p>
+      <p class="launch-note if-launch">Launch week: $4.90 until Monday, November 23 (Seoul time). Then $6.90. That’s less than the 3 postcards alone ($5.90).</p>
       <p class="anchor if-regular">The 3 postcards alone are $5.90. With the full guide, it’s $6.90.</p>
       <a id="cta-paid" class="btn btn-paid" href="https://noneuning.gumroad.com/l/bukchon-guide?wanted=true&amp;utm_source=bukchon_page&amp;utm_medium=cta&amp;utm_campaign=guide_paid&amp;utm_content=paid_section&amp;nn_product=guide" target="_blank" rel="noopener">
         <span class="if-launch">Unlock all 9 pages — $4.90</span><span class="if-regular">Unlock all 9 pages — $6.90</span><span class="arrow" aria-hidden="true">→</span>
@@ -374,14 +374,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          Steps measured: email_offer_view -> email_cta_click -> (GTM) email_form_start -> generate_lead -->
     <section id="email" class="block" data-needs-email>
       <p class="label">Free by email</p>
-      <h2 id="emailTitle">Our Bukchon map, ready on your phone</h2>
-      <p id="emailLede"><span class="m-spots">Every spot from the free guide</span> on one Google Maps list, <span class="m-eat">plus places to eat that aren’t in the guide</span>. Each pin has a note: the hours that matter, and what we ordered.</p>
-      <img class="preview" src="bukchon-map-preview.jpg" alt="Our Bukchon list in Google Maps, with every spot pinned" onerror="this.remove()">
+      <h2 id="emailTitle">Our Bukchon food map, ready on your phone</h2>
+      <p id="emailLede">45 places to eat and drink around Bukchon and Anguk, all on one Google Maps list. 20+ of them aren’t in the free guide. We’ll send it with page 22 from the full guide.</p>
       <div class="receipt" aria-label="What you'll get by email">
         <div class="r-head"><span>YOU'LL GET</span><span>BY EMAIL</span></div>
         <ul class="r-list" id="emailList">
-          <li class="r-row" data-item="map"><span>Our Bukchon map</span><span class="fill" aria-hidden="true"></span><span class="qty m-spots-qty">Google Maps</span></li>
-          <li class="r-row" data-item="eat"><span>Places to eat not in the guide</span><span class="fill" aria-hidden="true"></span><span class="qty m-eat-qty">on the map</span></li>
+          <li class="r-row" data-item="map"><span>Our Bukchon food map</span><span class="fill" aria-hidden="true"></span><span class="qty">45 places</span></li>
+          <li class="r-row" data-item="eat"><span>Not in the free guide</span><span class="fill" aria-hidden="true"></span><span class="qty">20+</span></li>
           <li class="r-row" data-item="p22"><span>Bonus: p.22 “It’s 5pm. Now what?”</span><span class="fill" aria-hidden="true"></span><span class="qty">1 page</span></li>
         </ul>
         <div class="r-total"><span>TOTAL</span><span>$0.00</span></div>
@@ -389,7 +388,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button type="button" class="btn" id="emailCta"><span>Send me the map</span><span class="arrow" aria-hidden="true">→</span></button>
       <p class="btn-note">Just your email · Arrives in a minute · No confirm click</p>
       <div class="form-box" id="emailForm" hidden>
-        <div class="ml-embedded" data-form="BUKCHON_FORM_ID"></div>
+        <div class="ml-embedded" data-form="wo0IO5"></div>
       </div>
       <p class="privacy">1 email now, and 1 when we finish the next neighborhood<span class="if-launch">, plus 1 reminder before the launch price ends</span>. That’s it. Unsubscribe anytime. We never sell or share your email.</p>
     </section>
@@ -423,18 +422,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var launch = Date.now() <= LAUNCH_END.getTime();
   document.querySelectorAll(launch ? '.if-regular' : '.if-launch').forEach(function (el) { el.style.display = 'none'; });
 })();
-// 0) Map list numbers. Fill these in once the Google Maps list is final (null = wording without numbers).
-var MAP = { spots: null, eatNotInGuide: null };
-(function () {
-  if (MAP.spots) {
-    document.querySelectorAll('.m-spots').forEach(function (el) { el.textContent = MAP.spots + ' spots'; });
-    document.querySelectorAll('.m-spots-qty').forEach(function (el) { el.textContent = MAP.spots + ' spots'; });
-  }
-  if (MAP.eatNotInGuide) {
-    document.querySelectorAll('.m-eat').forEach(function (el) { el.textContent = 'including ' + MAP.eatNotInGuide + ' places to eat that aren’t in the guide'; });
-    document.querySelectorAll('.m-eat-qty').forEach(function (el) { el.textContent = MAP.eatNotInGuide + ' places'; });
-  }
-})();
 // 2) Email: until a real MailerLite form ID replaces BUKCHON_FORM_ID, hide everything that points to it.
 (function () {
   var f = document.querySelector('#email .ml-embedded');
@@ -451,11 +438,11 @@ var MAP = { spots: null, eatNotInGuide: null };
   // Context: readers coming from the locked page 22 see page 22 as the headline, map as the bonus.
   if (/^guide_p22/.test(from)) {
     document.getElementById('emailTitle').textContent = 'It’s 5pm. Now what? Page 22, free by email';
-    document.getElementById('emailLede').textContent = 'The red zone closes at 5. Page 22 of the full guide is where the evening goes from there. We’ll send it with our Bukchon map.';
+    document.getElementById('emailLede').textContent = 'The red zone closes at 5. Page 22 of the full guide is where the evening goes from there. We’ll send it with our Bukchon food map: 45 places to eat and drink.';
     var list = document.getElementById('emailList');
     list.insertBefore(list.querySelector('[data-item="p22"]'), list.firstChild);
     list.querySelector('[data-item="p22"] span').textContent = 'p.22 “It’s 5pm. Now what?”';
-    list.querySelector('[data-item="map"] span').textContent = 'Bonus: our Bukchon map';
+    list.querySelector('[data-item="map"] span').textContent = 'Bonus: our Bukchon food map';
     cta.querySelector('span').textContent = 'Send me page 22';
   }
   // Readers who already clicked an email button inside the guide skip the button step.
