@@ -134,7 +134,7 @@ img{display:block;max-width:100%;height:auto}
 .card{background:var(--paper);border:2px solid var(--brown);border-radius:4px;box-shadow:0 4px 0 var(--brown);overflow:hidden}
 .card-img{position:relative;display:block;border-bottom:2px solid var(--brown);background:#E9E2C8;aspect-ratio:1005/565}
 .card-img img{width:100%;height:100%;object-fit:cover}
-.badge{position:absolute;left:12px;top:12px;padding:5px 8px 4px;background:var(--red);color:var(--paper);font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px}
+.badge{position:absolute;left:12px;bottom:12px;padding:5px 8px 4px;background:var(--red);color:var(--paper);font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px}
 .card-body{padding:20px 18px 18px}
 .card h1{font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-0.015em}
 .card-body > p{margin-top:10px;font-size:16px;color:var(--ink)}
@@ -228,14 +228,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </a>
         <div class="card-body">
           <h1 id="f-title">Bukchon runs on a clock.</h1>
-          <p>The red zone is open to visitors 10am–5pm. The full guide is the 9 pages on when to go, where to stand, and where the evening goes after 5.</p>
+          <p>The red zone is open 10am–5pm. These 9 pages cover when to go, where to stand, and what to do after 5.</p>
 
           <div class="tally" aria-label="Price">
             <div class="t-row"><span>Full guide, 24 pages</span><span class="fill" aria-hidden="true"></span><span class="if-launch"><s>$6.90</s></span><span class="if-regular">$6.90</span></div>
             <div class="t-row"><span>+ 3 postcards</span><span class="fill" aria-hidden="true"></span><span class="soft">included</span></div>
             <div class="t-total if-launch"><span>Launch week</span><span class="amt">$4.90</span></div>
           </div>
-          <p class="deadline if-launch"><b id="countdown">Ends Monday, November 23</b> · 11:59pm Seoul time, then $6.90</p>
+          <p class="deadline if-launch"><b id="countdown">Ends Monday, November 23</b> · 11:59pm Seoul time</p>
 
           <a id="links-bukchon-paid" class="btn" href="https://noneuning.gumroad.com/l/bukchon-guide?wanted=true&amp;utm_source=links_page&amp;utm_medium=cta&amp;utm_campaign=guide_paid&amp;utm_content=bukchon_btn&amp;nn_product=guide" target="_blank" rel="noopener">
             <span class="if-launch">Get the full guide — $4.90</span><span class="if-regular">Get the full guide — $6.90</span><span class="arrow" aria-hidden="true">→</span>
@@ -323,7 +323,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var c = document.getElementById('countdown');
     if (launch && c) {
       var h = Math.floor(left / 3600000), d = Math.floor(h / 24);
-      c.textContent = d >= 1 ? 'Ends in ' + d + 'd ' + (h % 24) + 'h' : 'Ends in ' + h + 'h ' + Math.floor((left % 3600000) / 60000) + 'm';
+      c.textContent = (d >= 1 ? 'Ends in ' + d + 'd ' + (h % 24) + 'h' : 'Ends in ' + h + 'h ' + Math.floor((left % 3600000) / 60000) + 'm') + ' (Mon, Nov 23)';
     }
     return launch;
   }
